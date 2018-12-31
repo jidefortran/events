@@ -6,16 +6,27 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
      <li class="nav-item"> <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> </li>
-     <li class="nav-item"> <a class="nav-link"  [routerLink]="['/app-movies-detail/:id']" routerLinkActive="router-link-active" >Movies Detail</a> </li>
-     <li class="nav-item"> <a class="nav-link" [routerLink]="['/app-movies-search']" routerLinkActive="router-link-active" >Search</a> </li>
+     <li class="nav-item"> <a class="nav-link"  [routerLink]="['/movies-detail/:id']" routerLinkActive="router-link-active" >Movies</a> </li>
+     <li class="nav-item"> <a class="nav-link" [routerLink]="['/movies-search']" routerLinkActive="router-link-active" >Search</a> </li>
      <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown link
-      </a>
+
+      <ng-template #anonymusUser>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+          </li>
+         </ng-template>
+
+          <li ngbDropdown  *ngIf="appUser else anonymusUser" class=" nav-item dropdown ">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {{appUser.name}}
+            </a>
+
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+        <a class="dropdown-item" [routerLink]="['admin/movies-create']" routerLinkActive="router-link-active" >Add Movie</a>
+        <a class="dropdown-item" [routerLink]="['admin/movies-edit']" routerLinkActive="router-link-active" >Edit Movie</a>
+            <a class="dropdown-item"  (click)= logout()>Logout</a>
+
+
       </div>
     </li>
     </ul>
