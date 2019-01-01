@@ -20,6 +20,10 @@ import { AuthGaurdService } from './services/auth-gaurd.service';
 import { UserServiceService } from './services/user-service.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { LoginComponent } from './login/login.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSortModule} from '@angular/material';
 
 
 @NgModule({
@@ -31,17 +35,29 @@ import { LoginComponent } from './login/login.component';
     MoviesDetailComponent,
     MoviesEditComponent,
     MoviesSearchComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     RouterModule,
+    NgbModule,
     BrowserModule,
+    AngularFirestoreModule,
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+
+
+
 
     RouterModule.forRoot([{
       path: 'home',
@@ -83,7 +99,8 @@ import { LoginComponent } from './login/login.component';
     AuthGaurdService,
     UserServiceService,
     AuthServiceService,
-    AdminAuthGaurdService
+    AdminAuthGaurdService,
+    AngularFirestoreModule
   ],
   bootstrap: [AppComponent]
 })
