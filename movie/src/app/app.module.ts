@@ -24,6 +24,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSortModule} from '@angular/material';
+import {MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule} from '@angular/material';
+import { Movies } from './models/movie-model';
+
 
 
 @NgModule({
@@ -50,11 +53,20 @@ import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSo
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
 
+    BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
     MatTableModule,
+    MatPaginatorModule,
     MatSortModule,
+    MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
 
 
 
@@ -100,7 +112,8 @@ import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSo
     UserServiceService,
     AuthServiceService,
     AdminAuthGaurdService,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    Movies
   ],
   bootstrap: [AppComponent]
 })

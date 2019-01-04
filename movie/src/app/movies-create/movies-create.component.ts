@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { movieService } from '../services/movieService';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
 
 @Component({
   selector: 'app-movies-create',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoviesCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private movie: movieService, firestore: AngularFirestore) { }
 
   ngOnInit() {
+    this.resetForm();
+  }
+  resetForm(form?: NgForm) {
+    if (form != null)
+      form.resetForm();
+    this.movie.formData = {
+      id: null,
+      Title: '',
+      Description: '',
+      empCode: '',
+      mobile: '',
+    }
   }
 
 }
