@@ -9,7 +9,6 @@ import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { environment } from 'src/environments/environment';
 import { MoviesCreateComponent } from './movies-create/movies-create.component';
@@ -72,8 +71,8 @@ import { Movies } from './models/movie-model';
 
 
     RouterModule.forRoot([{
-      path: 'home',
-      component: HomeComponent,
+      path: 'movies-create',
+      component: MoviesCreateComponent,
       data: { title: 'Movies List' }
     },
     {
