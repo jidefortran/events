@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { movieService } from '../services/movieService';
+import { MovieService } from '../services/movieService';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {NgForm} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -11,21 +13,42 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class MoviesCreateComponent implements OnInit {
 
-  constructor(private movie: movieService, firestore: AngularFirestore) { }
+  constructor(private service: MovieService, private firestore: AngularFirestore, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.resetForm();
   }
   resetForm(form?: NgForm) {
-    if (form != null)
+    if (form != null) {
       form.resetForm();
-    this.movie.formData = {
+    }
+    this.service.formData = {
       id: null,
       Title: '',
       Description: '',
-      empCode: '',
-      mobile: '',
+      CummulativeGross: '',
+      Rating: '',
+      Year: '',
+      Image: '',
+      Budget: '',
+    };
+  }
+      onSubmit(form: NgForm) {
+        const data = Object.assign({}, form.value);
+        delete data.id;
+        if (form.value.id == null) {
+          this.firestore.collection('movies').add(data);
+        } else {
+          this.firestore.doc('movies/' + form.value.id).update(data);
+        }
+        this.resetForm(form);
+        this.toastr.success('Submitted successfully', 'Register');
+    }
+
+    onDelete(id: string) {
+      if (confirm('Are you sure to delete this record?')) {
+        this.toastr.warning('Deleted successfully', 'Register');
+      }
     }
   }
 
-}

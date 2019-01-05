@@ -1,4 +1,9 @@
+import { Movies } from './../models/movie-model';
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { MovieService } from '../services/movieService';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-movies-search',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoviesSearchComponent implements OnInit {
 
-  constructor() { }
+  list: Movies[];
+  constructor(private service: MovieService,
+    private firestore: AngularFirestore) { }
 
   ngOnInit() {
+    this.service.getMovies().subscribe(actionArray => {
+      this.list = actionArray.map(item => {
+        return {
+          id: item.payload.doc.id,
+          ...item.payload.doc.data()
+        } as Movies;
+      });
+    });
+  }
+
+  onEdit(emp: Movies) {
+    this.service.formData = Object.assign({}, emp);
+  }
+
+  onDelete(id: string) {
+    if (confirm('Are you sure to delete this record?')) {
+      this.firestore.doc('movies/' + id).delete();
+    }
   }
 
 }

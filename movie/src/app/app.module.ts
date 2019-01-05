@@ -1,12 +1,15 @@
-import { AdminAuthGaurdService } from './services/admin-auth-gaurd.service';
+import { RouterModule } from '@angular/router';
+import { MovieService } from './services/movieService';
+// import { AdminAuthGaurdService } from './services/admin-auth-gaurd.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule, AngularFireObject} from '@angular/fire/database';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,106 +18,58 @@ import { MoviesCreateComponent } from './movies-create/movies-create.component';
 import { MoviesSearchComponent } from './movies-search/movies-search.component';
 import { MoviesEditComponent } from './movies-edit/movies-edit.component';
 import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
-import { AuthGaurdService } from './services/auth-gaurd.service';
-import { UserServiceService } from './services/user-service.service';
-import { AuthServiceService } from './services/auth-service.service';
-import { LoginComponent } from './login/login.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSortModule} from '@angular/material';
-import {MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule} from '@angular/material';
-import { Movies } from './models/movie-model';
+
+
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HeaderComponent,
     MoviesCreateComponent,
     MoviesDetailComponent,
     MoviesEditComponent,
     MoviesSearchComponent,
-    LoginComponent,
+    ],
+    imports: [
+      BrowserModule,
+      AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
+      FormsModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot(),
+      RouterModule.forRoot([{
+        path: 'movies-create',
+        component: MoviesCreateComponent,
+        data: { title: 'Movies List' }
+      },
+      {
+        path: 'movies-detail/:id',
+        component: MoviesDetailComponent,
+        data: { title: 'Movies Details' }
+      },
+      {
+        path: 'admin/movies-edit/:id',
+        component:  MoviesEditComponent,
+        data: { title: 'Edit Movies' }
+      },
+      {
+        path: 'movies-search',
+        component:  MoviesSearchComponent,
+        data: { title: 'Search Movies' }
+      },
 
-  ],
-  imports: [
-    RouterModule,
-    NgbModule,
-    BrowserModule,
-    AngularFirestoreModule,
-    AngularFireModule,
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+     ]),
+    ],
+    providers: [
+      // AdminAuthGaurdService,
+    //  AngularFirestoreModule,
+    //  Movies,
+      MovieService
+    ],
+    bootstrap: [AppComponent]
+  })
 
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-
-
-
-
-    RouterModule.forRoot([{
-      path: 'movies-create',
-      component: MoviesCreateComponent,
-      data: { title: 'Movies List' }
-    },
-    {
-      path: 'movies-detail/:id',
-      component: MoviesDetailComponent,
-      data: { title: 'Movies Details' }
-    },
-    {
-      path: 'admin/movies-create',
-      component: MoviesCreateComponent,
-      data: { title: 'Create Movie' }, canActivate: [AuthGaurdService, AdminAuthGaurdService]
-    },
-    {
-      path: 'admin/movies-edit/:id',
-      component:  MoviesEditComponent,
-      data: { title: 'Edit Movies' }, canActivate: [AuthGaurdService, AdminAuthGaurdService]
-    },
-    {
-      path: 'movies-search',
-      component:  MoviesSearchComponent,
-      data: { title: 'Search Movies' }
-    },
-
-    {
-      path: 'login',
-      component:  LoginComponent,
-      data: { title: 'Login' }
-    },
-    { path: '',
-      redirectTo: '/home',
-      pathMatch: 'full'
-    }]),
-  ],
-  providers: [
-    AuthGaurdService,
-    UserServiceService,
-    AuthServiceService,
-    AdminAuthGaurdService,
-    AngularFirestoreModule,
-    Movies
-  ],
-  bootstrap: [AppComponent]
-})
-
-export class AppModule { }
+  export class AppModule { }
