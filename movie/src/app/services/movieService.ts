@@ -1,4 +1,4 @@
-import { Movies } from '../models/movie-model';
+import { Movie } from '../models/movie-model';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class MovieService {
-  formData: Movies;
+  formData: Movie;
   constructor(private firestore: AngularFirestore) { }
 
   getMovies() {

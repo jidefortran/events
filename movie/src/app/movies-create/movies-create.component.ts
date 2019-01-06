@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../services/movieService';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {NgForm} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MoviesCreateComponent implements OnInit {
 
-  constructor(private service: MovieService, private firestore: AngularFirestore, private toastr: ToastrService) { }
+  constructor(public service: MovieService, private firestore: AngularFirestore) { }
 
   ngOnInit() {
     this.resetForm();
@@ -35,20 +35,20 @@ export class MoviesCreateComponent implements OnInit {
   }
       onSubmit(form: NgForm) {
         const data = Object.assign({}, form.value);
-        delete data.id;
+        delete data.id ;
         if (form.value.id == null) {
           this.firestore.collection('movies').add(data);
+          console.log(this.service.formData.Title);
         } else {
           this.firestore.doc('movies/' + form.value.id).update(data);
+          console.log('not saved');
         }
-        this.resetForm(form);
-        this.toastr.success('Submitted successfully', 'Register');
+       // this.resetForm(form);
+       // this.toastr.success('Submitted successfully', 'emp.Register');
+        console.log(this.service.formData.Title);
+
     }
 
-    onDelete(id: string) {
-      if (confirm('Are you sure to delete this record?')) {
-        this.toastr.warning('Deleted successfully', 'Register');
-      }
-    }
+
   }
 

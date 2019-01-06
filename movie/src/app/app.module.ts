@@ -1,3 +1,4 @@
+// import { Movie } from './models/movie-model';
 import { RouterModule } from '@angular/router';
 import { MovieService } from './services/movieService';
 // import { AdminAuthGaurdService } from './services/admin-auth-gaurd.service';
@@ -7,9 +8,8 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,7 +18,6 @@ import { MoviesCreateComponent } from './movies-create/movies-create.component';
 import { MoviesSearchComponent } from './movies-search/movies-search.component';
 import { MoviesEditComponent } from './movies-edit/movies-edit.component';
 import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
-
 
 
 
@@ -38,8 +37,8 @@ import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
       FormsModule,
-      BrowserAnimationsModule,
-      ToastrModule.forRoot(),
+   //   BrowserAnimationsModule,
+
       RouterModule.forRoot([{
         path: 'movies-create',
         component: MoviesCreateComponent,
@@ -66,7 +65,7 @@ import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
     providers: [
       // AdminAuthGaurdService,
     //  AngularFirestoreModule,
-    //  Movies,
+
       MovieService
     ],
     bootstrap: [AppComponent]

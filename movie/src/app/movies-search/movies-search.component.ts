@@ -1,8 +1,8 @@
-import { Movies } from './../models/movie-model';
+import { Movie } from './../models/movie-model';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MovieService } from '../services/movieService';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -12,8 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MoviesSearchComponent implements OnInit {
 
-  list: Movies[];
-  constructor(private service: MovieService,
+  list: Movie[];
+  constructor(public service: MovieService,
     private firestore: AngularFirestore) { }
 
   ngOnInit() {
@@ -22,12 +22,12 @@ export class MoviesSearchComponent implements OnInit {
         return {
           id: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as Movies;
+        } as Movie;
       });
     });
   }
 
-  onEdit(emp: Movies) {
+  onEdit(emp: Movie) {
     this.service.formData = Object.assign({}, emp);
   }
 
