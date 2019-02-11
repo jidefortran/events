@@ -1,3 +1,4 @@
+import { MaterialModule } from './material/material.module';
 // import { Movie } from './models/movie-model';
 import { RouterModule } from '@angular/router';
 import { MovieService } from './services/movieService';
@@ -7,8 +8,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FormsModule } from '@angular/forms';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import {FirebaseModule, FirebaseProvider} from 'angular-firebase';
+
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
@@ -18,6 +26,13 @@ import { MoviesCreateComponent } from './movies-create/movies-create.component';
 import { MoviesSearchComponent } from './movies-search/movies-search.component';
 import { MoviesEditComponent } from './movies-edit/movies-edit.component';
 import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
+import { LoginComponent } from './login/login.component';
+import { FrontComponent } from './front/front.component';
+import { config } from './services/app.config';
+import { Observable } from 'rxjs';
+import { HttpClientModule} from '@angular/common/http';
+import {EmbedVideo} from 'ngx-embed-video';
+import { UpdateBarComponent } from './update-bar/update-bar.component';
 
 
 
@@ -31,13 +46,28 @@ import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
     MoviesDetailComponent,
     MoviesEditComponent,
     MoviesSearchComponent,
+    LoginComponent,
+    FrontComponent,
+    UpdateBarComponent,
     ],
     imports: [
+      HttpClientModule,
+      EmbedVideo.forRoot(),
+      MaterialModule,
       BrowserModule,
+      ReactiveFormsModule,
+      NgxAuthFirebaseUIModule.forRoot({
+        apiKey: 'AIzaSyAx75QItul2mOQiZpgbIljQb3nO_V0n3-s',
+        authDomain: 'movie-56c7e.firebaseapp.com',
+        databaseURL: 'https://movie-56c7e.firebaseio.com',
+        projectId: 'movie-56c7e',
+        storageBucket: 'movie-56c7e.appspot.com',
+        messagingSenderId: '126640968860'
+      }),
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFirestoreModule,
       FormsModule,
-   //   BrowserAnimationsModule,
+    BrowserAnimationsModule,
 
       RouterModule.forRoot([{
         path: 'movies-create',
@@ -45,9 +75,11 @@ import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
         data: { title: 'Movies List' }
       },
       {
-        path: 'movies-detail/:id',
-        component: MoviesDetailComponent,
-        data: { title: 'Movies Details' }
+        path: 'home',
+         children: [
+           {path: '', component: FrontComponent},
+          { path: 'movies-detail/:id', component: MoviesDetailComponent},
+         ]
       },
       {
         path: 'admin/movies-edit/:id',
@@ -60,12 +92,17 @@ import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
         data: { title: 'Search Movies' }
       },
 
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: ' Admin Login' }
+      }
      ]),
     ],
     providers: [
       // AdminAuthGaurdService,
     //  AngularFirestoreModule,
-
+    FirebaseProvider,
       MovieService
     ],
     bootstrap: [AppComponent]

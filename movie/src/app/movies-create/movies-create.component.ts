@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { MovieService } from '../services/movieService';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {NgForm} from '@angular/forms';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 // import { ToastrService } from 'ngx-toastr';
 
-
+@NgModule({
+  imports: [
+  NgxAuthFirebaseUIModule
+  ]
+})
 
 @Component({
   selector: 'app-movies-create',
@@ -31,6 +36,10 @@ export class MoviesCreateComponent implements OnInit {
       Year: '',
       Image: '',
       Budget: '',
+      starcast1: '',
+      starcast2: '',
+      starcast3: '',
+      Trailer: ''
     };
   }
       onSubmit(form: NgForm) {
@@ -38,14 +47,14 @@ export class MoviesCreateComponent implements OnInit {
         delete data.id ;
         if (form.value.id == null) {
           this.firestore.collection('movies').add(data);
-          console.log(this.service.formData.Title);
+          console.log('saved');
         } else {
           this.firestore.doc('movies/' + form.value.id).update(data);
           console.log('not saved');
         }
        // this.resetForm(form);
        // this.toastr.success('Submitted successfully', 'emp.Register');
-        console.log(this.service.formData.Title);
+       // console.log(this.service.formData.title);
 
     }
 
