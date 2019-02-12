@@ -1,3 +1,73 @@
-<p>
-  movies-search works!
-</p>
+<table class="table table-hover">
+    <thead>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Rating</th>
+      <th>Budget</th>
+
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of list">
+        <td (click)="onEdit(emp)">{{emp.title}} </td>
+        <td (click)="onEdit(emp)">{{emp.year}}</td>
+        <td (click)="onEdit(emp)">{{emp.rating}}</td>
+        <td (click)="onEdit(emp)">{{emp.budget | currency: 'CAD':true}}</td>
+        <td><a class="btn text-danger" (click)="onDelete(emp.id)"><i class="fa fa-trash"></i></a></td>
+        <td><a class="btn text-danger" (click)="onChange(emp.id)"><i class="fa fa-amazon"></i></a></td>
+
+
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 class ="display-5 editTitle">Edit Movie</h1>
+  <div *ngFor="let ch of changeMovie$" class="m-5 align-content-center">
+  <form class="example-container" #form="ngForm" (submit)="onSubmit(form,chId)" >
+
+      <mat-form-field [color]="options.value.color">
+          <input matInput placeholder="Favorite food" [value]="chId" placeholder="id"class="form-control" hidden="true" >
+  </mat-form-field>
+
+      <mat-form-field [color]="options.value.color">
+          <input matInput placeholder="Favorite food" [value]="ch.title" placeholder="Movie Title"   name="title"class="form-control" [(ngModel)] ="ch.title">
+  </mat-form-field>
+  <mat-form-field [color]="options.value.color">
+      <textarea matInput placeholder="Favorite food" [value]="ch.description" placeholder="Story Line"    name="description" rows="2" class="form-control" [(ngModel)] ="ch.description"></textarea>
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.imageUrl" placeholder="Movie Poster"  name="image" class="form-control" [(ngModel)] ="ch.imageUrl">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.year" placeholder="Movie Title"  name="year" class="form-control" [(ngModel)] ="ch.year">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.budget" placeholder="Movie Budget"  name="budget" class="form-control" [(ngModel)] ="ch.budget">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.gross" placeholder="Cummulative Gross"  name="gross" class="form-control"[(ngModel)] ="ch.gross">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.rating" placeholder="IMDB Rating"   name="rating" class="form-control" [(ngModel)] ="ch.rating">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.starcast1" placeholder="Main Cast"  name="starcast1" class="form-control"[(ngModel)] ="ch.starcast1">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.starcast2" placeholder="Star Cast"  name="starcast2" class="form-control" [(ngModel)] ="ch.starcast2">
+</mat-form-field>
+<mat-form-field [color]="options.value.color">
+    <input matInput placeholder="Favorite food" [value]="ch.starcast3" placeholder="Star Cast"   name="starcast3" class="form-control" [(ngModel)] ="ch.starcast3">
+
+</mat-form-field>
+<button mat-raised-button color="warn" (submit)="onSubmit(form, chId)" (click) ="openSnackBar()">Update</button>
+
+  </form>
+
+</div>
+
+
+
+
+
+

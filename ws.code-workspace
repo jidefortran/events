@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "movie"
+		},
+		{
+			"path": "movie\\events",
+			"name": "events"
+		}
+	],
+	"settings": {}
+}

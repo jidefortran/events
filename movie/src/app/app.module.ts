@@ -1,108 +1,111 @@
-import { AdminAuthGaurdService } from './services/admin-auth-gaurd.service';
+import { MaterialModule } from './material/material.module';
+// import { Movie } from './models/movie-model';
+import { RouterModule } from '@angular/router';
+import { MovieService } from './services/movieService';
+// import { AdminAuthGaurdService } from './services/admin-auth-gaurd.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule, AngularFireObject} from '@angular/fire/database';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import {FirebaseModule, FirebaseProvider} from 'angular-firebase';
+
+
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { environment } from 'src/environments/environment';
 import { MoviesCreateComponent } from './movies-create/movies-create.component';
 import { MoviesSearchComponent } from './movies-search/movies-search.component';
 import { MoviesEditComponent } from './movies-edit/movies-edit.component';
 import { MoviesDetailComponent } from './movies-detail/movies-detail.component';
-import { AuthGaurdService } from './services/auth-gaurd.service';
-import { UserServiceService } from './services/user-service.service';
-import { AuthServiceService } from './services/auth-service.service';
 import { LoginComponent } from './login/login.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTableModule, MatButtonModule, MatCheckboxModule, MatIconModule, MatSortModule} from '@angular/material';
+import { FrontComponent } from './front/front.component';
+import { config } from './services/app.config';
+import { Observable } from 'rxjs';
+import { HttpClientModule} from '@angular/common/http';
+import {EmbedVideo} from 'ngx-embed-video';
+import { UpdateBarComponent } from './update-bar/update-bar.component';
+
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HeaderComponent,
     MoviesCreateComponent,
     MoviesDetailComponent,
     MoviesEditComponent,
     MoviesSearchComponent,
     LoginComponent,
-
-  ],
-  imports: [
-    RouterModule,
-    NgbModule,
-    BrowserModule,
-    AngularFirestoreModule,
-    AngularFireModule,
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-
+    FrontComponent,
+    UpdateBarComponent,
+    ],
+    imports: [
+      HttpClientModule,
+      EmbedVideo.forRoot(),
+      MaterialModule,
+      BrowserModule,
+      ReactiveFormsModule,
+      NgxAuthFirebaseUIModule.forRoot({
+        apiKey: 'AIzaSyAx75QItul2mOQiZpgbIljQb3nO_V0n3-s',
+        authDomain: 'movie-56c7e.firebaseapp.com',
+        databaseURL: 'https://movie-56c7e.firebaseio.com',
+        projectId: 'movie-56c7e',
+        storageBucket: 'movie-56c7e.appspot.com',
+        messagingSenderId: '126640968860'
+      }),
+      AngularFireModule.initializeApp(environment.firebaseConfig),
+      AngularFirestoreModule,
+      FormsModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatSortModule,
-    MatIconModule,
-    MatButtonModule,
 
+      RouterModule.forRoot([{
+        path: 'movies-create',
+        component: MoviesCreateComponent,
+        data: { title: 'Movies List' }
+      },
+      {
+        path: 'home',
+         children: [
+           {path: '', component: FrontComponent},
+          { path: 'movies-detail/:id', component: MoviesDetailComponent},
+         ]
+      },
+      {
+        path: 'admin/movies-edit/:id',
+        component:  MoviesEditComponent,
+        data: { title: 'Edit Movies' }
+      },
+      {
+        path: 'movies-search',
+        component:  MoviesSearchComponent,
+        data: { title: 'Search Movies' }
+      },
 
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: ' Admin Login' }
+      }
+     ]),
+    ],
+    providers: [
+      // AdminAuthGaurdService,
+    //  AngularFirestoreModule,
+    FirebaseProvider,
+      MovieService
+    ],
+    bootstrap: [AppComponent]
+  })
 
-
-    RouterModule.forRoot([{
-      path: 'home',
-      component: HomeComponent,
-      data: { title: 'Movies List' }
-    },
-    {
-      path: 'movies-detail/:id',
-      component: MoviesDetailComponent,
-      data: { title: 'Movies Details' }
-    },
-    {
-      path: 'admin/movies-create',
-      component: MoviesCreateComponent,
-      data: { title: 'Create Movie' }, canActivate: [AuthGaurdService, AdminAuthGaurdService]
-    },
-    {
-      path: 'admin/movies-edit/:id',
-      component:  MoviesEditComponent,
-      data: { title: 'Edit Movies' }, canActivate: [AuthGaurdService, AdminAuthGaurdService]
-    },
-    {
-      path: 'movies-search',
-      component:  MoviesSearchComponent,
-      data: { title: 'Search Movies' }
-    },
-
-    {
-      path: 'login',
-      component:  LoginComponent,
-      data: { title: 'Login' }
-    },
-    { path: '',
-      redirectTo: '/home',
-      pathMatch: 'full'
-    }]),
-  ],
-  providers: [
-    AuthGaurdService,
-    UserServiceService,
-    AuthServiceService,
-    AdminAuthGaurdService,
-    AngularFirestoreModule
-  ],
-  bootstrap: [AppComponent]
-})
-
-export class AppModule { }
+  export class AppModule { }

@@ -1,3 +1,10 @@
-<p>
-  movies-detail works!
-</p>
+
+
+<p>Value of parent component is: {{ PData }} {{movie$}}</p>
+<div *ngFor= "let emi of movie$">
+    <div class="card shadow-sm p-3 mb-5 bg-white rounded" style="width: 14rem;">
+        <img src="{{emi.imageUrl}}" class="card-img-top" alt="{{emi.title}}">
+        <div class="card-body">
+          <h4 class="card-title">{{emi.title}}</h4>
+          <p class="card-text">{{emi.description}}</p>
+  </div>

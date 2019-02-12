@@ -1,0 +1,61 @@
+<div class="container-12">
+    <div class="row">
+      <div class="col-sm-6">
+
+
+          <div class="card-group m-2 ">
+              <div *ngFor= "let em of list">
+
+                <div class="card shadow-sm bg-white rounded" style="width: 13rem;">
+                  <img src="{{em.imageUrl}}" class=" img-thumbnail" alt="{{em.title}}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{em.title}}</h5>
+
+            <button class="btn btn-primary btn-sm btn-block" (click)="getMovieDetails(em.id)" > View More </button>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+  </div>
+
+
+
+    <div class="col-sm-6">
+      <div class="row">
+          <div class="col-sm-4">
+        <div *ngFor= "let emi of movie$" class="col-lg-5">
+                  <mat-card class="example-card">
+                      <mat-card-header>
+
+                        <mat-card-title>{{emi.title}}</mat-card-title>
+                        <mat-card-subtitle>{{emi.year}}</mat-card-subtitle>
+                      </mat-card-header>
+                      <img mat-card-lg-image src="{{emi.imageUrl}}" alt="{{emi.title}}">
+                      <mat-card-content>
+
+
+
+                      </mat-card-content>
+                      <mat-card-actions>
+                      </mat-card-actions>
+                  </mat-card>
+
+</div>
+
+
+      </div>
+      <div class="col-8 ">
+ <div class="summary" >Movie Trailer</div>
+
+
+      <div [innerHTML]='yr_iframe_html'></div>
+    </div>
+
+
+  </div>
+</div>
+  </div>
+
