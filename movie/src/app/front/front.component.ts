@@ -6,6 +6,7 @@ import { Router , RouterModule} from '@angular/router';
 import { MoviesDetailComponent } from '../movies-detail/movies-detail.component';
 import {MatCardModule} from '@angular/material/card';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 
 
@@ -25,8 +26,15 @@ export class FrontComponent implements OnInit {
 
   list: Movie[];
   movie$: Movie[];
+  iframe_html: any;
+  youtubeUrl = 'https://www.youtube.com/watch?v=iHhcHTlGtRs';
+  Trailer: string;
 
-  constructor(private service: MovieService , private firestore: AngularFirestore , private route: Router) { }
+
+  constructor(private service: MovieService , private firestore: AngularFirestore , private route: Router,
+    private videoService: EmbedVideoService) {
+
+    }
   ngOnInit() {
     this.service.getMovies().subscribe(actionArray => {
       this.list = actionArray.map(item => {
@@ -39,14 +47,22 @@ export class FrontComponent implements OnInit {
   }
   getMovieDetails(filmId: string) {
   // this.route.navigateByUrl('/movies-detail');
-   this.route.navigate(['home/movies-detail/' , { filmId}]);
+   // this.route.navigate(['home/movies-detail/' , { filmId}]);
  this.service.getMovieDetail(filmId).subscribe((movie => {
     this.movie$ = movie;
-    console.log(this.movie$);
+
    })
  );
 
 
+  }
+
+  showTrailer(Trailer: string) {
+    this.iframe_html = this.videoService.embed(Trailer, {
+      query: { portrait: 0, color: 'ffff12' },
+      attr: { width: 400, height: 253 }
+    });
+ console.log(Trailer);
   }
 
 }
