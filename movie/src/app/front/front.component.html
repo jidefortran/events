@@ -1,4 +1,4 @@
-<div class="container-12">
+<div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
 
@@ -11,7 +11,7 @@
                   <div class="card-body">
                     <h5 class="card-title">{{em.title}}</h5>
 
-            <button class="btn btn-primary btn-sm btn-block" (click)="getMovieDetails(em.id)" > View More </button>
+            <button class="btn btn-primary btn-sm btn-block" (click)="getMovieDetails(em.id)" (click) = "showTrailer(em.trailer)" > View More </button>
 
 </div>
 
@@ -23,14 +23,16 @@
 
 
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 d-inline-block">
       <div class="row">
-          <div class="col-sm-4">
-        <div *ngFor= "let emi of movie$" class="col-lg-5">
+          <div class="col-sm-4 pl-1">
+        <div *ngFor= "let emi of movie$">
+            <h5 >{{emi.title}}</h5>
+
                   <mat-card class="example-card">
                       <mat-card-header>
 
-                        <mat-card-title>{{emi.title}}</mat-card-title>
+                        <mat-card-title> </mat-card-title>
                         <mat-card-subtitle>{{emi.year}}</mat-card-subtitle>
                       </mat-card-header>
                       <img mat-card-lg-image src="{{emi.imageUrl}}" alt="{{emi.title}}">
@@ -39,23 +41,21 @@
 
 
                       </mat-card-content>
-                      <mat-card-actions>
-                      </mat-card-actions>
                   </mat-card>
 
 </div>
 
 
       </div>
-      <div class="col-8 ">
- <div class="summary" >Movie Trailer</div>
+      <div class="col-lg-8 m-auto">
+ <div class="movie" >
 
 
-      <div [innerHTML]='yr_iframe_html'></div>
+      <div [innerHTML]='iframe_html' class="movie"></div>
     </div>
-
+  </div>
 
   </div>
 </div>
-  </div>
+</div>
 

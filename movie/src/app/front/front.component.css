@@ -8,3 +8,9 @@
 h{
   font-family: 'Lato';
 }
+
+.movie{
+  width:auto;
+  height: auto;
+  display: inline-block;
+}
