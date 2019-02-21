@@ -34,6 +34,7 @@ import { Observable } from 'rxjs';
 import { HttpClientModule} from '@angular/common/http';
 import {EmbedVideo} from 'ngx-embed-video';
 import { UpdateBarComponent } from './update-bar/update-bar.component';
+import { SuperSecretComponent } from './super-secret/super-secret.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
