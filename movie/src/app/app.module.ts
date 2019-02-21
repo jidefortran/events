@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/auth-guard.service';
 import { MaterialModule } from './material/material.module';
 // import { Movie } from './models/movie-model';
 import { RouterModule } from '@angular/router';
@@ -33,6 +34,8 @@ import { Observable } from 'rxjs';
 import { HttpClientModule} from '@angular/common/http';
 import {EmbedVideo} from 'ngx-embed-video';
 import { UpdateBarComponent } from './update-bar/update-bar.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 
 
@@ -40,6 +43,7 @@ import { UpdateBarComponent } from './update-bar/update-bar.component';
 
 @NgModule({
   declarations: [
+    UserProfileComponent,
     AppComponent,
     HeaderComponent,
     MoviesCreateComponent,
@@ -49,6 +53,7 @@ import { UpdateBarComponent } from './update-bar/update-bar.component';
     LoginComponent,
     FrontComponent,
     UpdateBarComponent,
+    SuperSecretComponent,
     ],
     imports: [
       HttpClientModule,
@@ -74,6 +79,9 @@ import { UpdateBarComponent } from './update-bar/update-bar.component';
         component: MoviesCreateComponent,
         data: { title: 'Movies List' }
       },
+      { path: 'secret', component: SuperSecretComponent, canActivate: [AuthGuardService]
+
+      },
       {
         path: 'home',
          children: [
@@ -88,8 +96,7 @@ import { UpdateBarComponent } from './update-bar/update-bar.component';
       },
       {
         path: 'movies-search',
-        component:  MoviesSearchComponent,
-        data: { title: 'Search Movies' }
+        component:  MoviesSearchComponent, canActivate: [AuthGuardService]
       },
 
       {
