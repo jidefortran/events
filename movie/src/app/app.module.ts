@@ -75,30 +75,29 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
       FormsModule,
     BrowserAnimationsModule,
 
-      RouterModule.forRoot([{
-        path: 'movies-create',
-        component: MoviesCreateComponent,
-        data: { title: 'Movies List' }
+      RouterModule.forRoot([
+        {
+          path: '', component: FrontComponent
+        },
+      {
+        path: 'home', component: FrontComponent
       },
       { path: 'secret', component: SuperSecretComponent, canActivate: [AuthGuardService]
-
-      },
-      {
-        path: 'home',
-         children: [
-           {path: '', component: FrontComponent},
-          { path: 'movies-detail/:id', component: MoviesDetailComponent},
-         ]
-      },
-      {
-        path: 'admin/movies-edit/:id',
-        component:  MoviesEditComponent,
-        data: { title: 'Edit Movies' }
-      },
+    },
       {
         path: 'movies-search',
+        component:  MoviesCreateComponent, canActivate: [AuthGuardService]
+      },
+
+      {
+        path: 'movies-create',
         component:  MoviesSearchComponent, canActivate: [AuthGuardService]
       },
+      {
+        path: 'user-profile',
+        component:  UserProfileComponent
+      },
+
 
       {
         path: 'login',

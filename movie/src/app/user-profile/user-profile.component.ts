@@ -1,5 +1,6 @@
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'app-user-profile',
